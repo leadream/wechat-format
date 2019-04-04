@@ -23,20 +23,13 @@
 
   <script src="codemirror/codemirror.js"></script>
   <script src="codemirror/mode/markdown/markdown.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4178606-10"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-4178606-10');
-  </script>
 </head>
 <body>
   <div id="app" class="container">
     <el-container>
       <el-header class="top">
         <div class="logo">WeChat Format</div>
-        <el-form label-width="80px" size="mini" class="ctrl">
+        <el-form label-width="120px" size="mini" class="ctrl">
           <el-form-item label="Fonts">
             <el-select v-model="currentFont" size="mini" placeholder="选择字体" @change="fontChanged">
               <el-option v-for="font in builtinFonts"  :style="{fontFamily: font.fonts}"
@@ -45,6 +38,26 @@
                 :value="font.fonts">
                 <span style="float: left">{{ font.label }}</span>
                 <span style="float: right; color: #8492a6; font-size: 13px" >Abc</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Editor Theme">
+            <el-select v-model="currentEditorTheme" size="mini" placeholder="选择主题" @change="themeChanged">
+              <el-option v-for="theme in editorThemes"
+                :key="theme"
+                :label="theme"
+                :value="theme">
+                <span style="float: left">{{ theme }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Output Theme">
+            <el-select v-model="currentOutputTheme" size="mini" placeholder="选择输出主题" @change="outputThemeChanged">
+              <el-option v-for="(outputTheme, key) in outputThemes"
+                :key="key"
+                :label="key"
+                :value="key">
+                <span style="float: left">{{ key }}</span>
               </el-option>
             </el-select>
           </el-form-item>
@@ -96,6 +109,13 @@
   </div>
 
   <script src="assets/scripts/themes/default.js"></script>
+  <script src="assets/scripts/themes/juuun.js"></script>
+  <script>
+    var outputThemes = {
+      'default': defaultTheme,
+      'juuun': juuunTheme
+    }
+  </script>
   <script src="assets/scripts/renderers/wx-renderer.js"></script>
   <script src="assets/scripts/editor.js"></script>
 

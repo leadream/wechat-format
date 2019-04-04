@@ -6,6 +6,8 @@ var app = new Vue({
       aboutOutput: '',
       output: '',
       source: '',
+      outputThemes,
+      currentOutputTheme: 'juuun',
       editorThemes: ['base16-light', 'monokai'],
       currentEditorTheme: 'base16-light',
       editor: null,
@@ -33,7 +35,7 @@ var app = new Vue({
     })
     this.currentFont = this.builtinFonts[0]
     this.wxRenderer = new WxRenderer({
-      theme: defaultTheme,
+      theme: this.outputThemes[this.currentOutputTheme],
       fonts: this.currentFont.fonts
     })
     axios({
@@ -50,6 +52,12 @@ var app = new Vue({
         output += this.wxRenderer.buildFootnotes()
       }
       return output
+    },
+    outputThemeChanged: function () {
+      this.wxRenderer.setOptions({
+        theme: this.outputThemes[this.currentOutputTheme]
+      })
+      this.refresh()
     },
     themeChanged: function () {
       this.editor.setOption('theme', this.currentEditorTheme)

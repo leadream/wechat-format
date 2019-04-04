@@ -130,11 +130,11 @@ var WxRenderer = function (opts) {
     }
     renderer.link = function (href, title, text) {
       if (href.indexOf('https://mp.weixin.qq.com') === 0) {
-        return '<a href="' + href +'" title="' + (title || text) + '">' + text + '</a>'; 
+        return '<a href="' + href +'" title="' + (title || text) + '" ' + S('link') + '>' + text + '</a>'; 
       } else {
         if (ENV_USE_REFERENCES) {
           var ref = addFootnote(title || text, href)
-          return '<span ' + S('link') + '>' + text + '<sup>['+ref+']</sup></span>'; 
+          return '<span ' + S('external_link') + '>' + text + '<sup>['+ref+']</sup></span>'; 
         } else {
           return '<a href="' + href +'" title="' + (title || text) + '" ' + S('link') + '>' + text + '</a>'; 
         }
